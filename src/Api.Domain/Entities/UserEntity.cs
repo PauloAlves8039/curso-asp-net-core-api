@@ -5,7 +5,7 @@ namespace src.Api.Domain.Entities
     /// </summary>
     public class UserEntity : BaseEntity
     {
-        public string Nome { get; set; }
+        public string Name { get; set; }
         public string Email { get; set; }
     }
 }
