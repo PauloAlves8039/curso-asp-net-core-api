@@ -68,6 +68,11 @@ namespace src.Api.Application.Controllers
             }
         }
 
+        /// <summary>
+        /// Action responsável por adicionar registro.
+        /// </summary>
+        /// <param name="user">Objeto a ser adicionado.</param>
+        /// <returns>Retorna um serviço com um registro adicionado.</returns>
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] UserEntity user)
         {
@@ -82,6 +87,37 @@ namespace src.Api.Application.Controllers
                 if (result != null)
                 {
                     return Created(new Uri(Url.Link("GetWithId", new { id = result.Id })), result);
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (ArgumentException e)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
+            }
+        }
+
+        /// <summary>
+        /// Action responsável por atualizar registro.
+        /// </summary>
+        /// <param name="user">Objeto a ser atualizado</param>
+        /// <returns>Retorna um serviço com um registro atualizado.</returns>
+        [HttpPut]
+        public async Task<ActionResult> Put([FromBody] UserEntity user)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                var result = await _service.Put(user);
+                if (result != null)
+                {
+                    return Ok(result);
                 }
                 else
                 {
