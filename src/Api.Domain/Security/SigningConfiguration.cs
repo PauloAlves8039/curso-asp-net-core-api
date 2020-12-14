@@ -1,0 +1,24 @@
+using System.Security.Cryptography;
+using Microsoft.IdentityModel.Tokens;
+
+namespace src.Api.Domain.Security
+{
+    /// <summary>
+    /// Classe responsável pela atribuição das propriedades de configurações da assinatura do Token.
+    /// </summary>
+    public class SigningConfiguration
+    {
+        public SecurityKey Key { get; set; }
+        public SigningCredentials SigningCredentials { get; set; }
+
+        public SigningConfiguration()
+        {
+            using (var provider = new RSACryptoServiceProvider(2048))
+            {
+                Key = new RsaSecurityKey(provider.ExportParameters(true));
+            }
+
+            SigningCredentials = new SigningCredentials(Key, SecurityAlgorithms.RsaSha256Signature);
+        }
+    }
+}
