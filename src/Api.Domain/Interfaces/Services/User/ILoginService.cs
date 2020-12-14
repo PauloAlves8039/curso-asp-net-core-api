@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using src.Api.Domain.Entities;
+using src.Api.Domain.Dtos;
 
 namespace src.Api.Domain.Interfaces.Services.User
 {
@@ -10,6 +10,6 @@ namespace src.Api.Domain.Interfaces.Services.User
         /// </summary>
         /// <param name="user">Parâmetro de pesquisa.</param>
         /// <returns>Retorna uma Task com o login do usuário pesquisado.</returns>
-        Task<object> FindByLogin(UserEntity user);
+        Task<object> FindByLogin(LoginDto user);
     }
 }
